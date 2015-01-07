@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html> 
+<head> 
+	<title>Simple Example</title> 
+
+	<script src="https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false" type="text/javascript"></script> 
+	<script src="/static/js/jquery.min.js"></script>
+	<script src="/static/js/jquery.base64.min.js"></script>
+	<script src="/static/js/zpipe.min.js"></script>
+	<script src="/static/js/dat.gui.min.js"></script>
+	<script src="/static/js/three.min.js"></script>
+	<script src="/static/js/GSVPano.js"></script>
+	<script src="/static/js/GSVPanoDepth.js"></script>
+	<script src="/static/js/GSVPanoEffects.js"></script>
+	<script src="/static/js/Hyperlapse.js"></script>
+	<script> 
+
+		function init() {
+
+			var hyperlapse = new Hyperlapse(document.getElementById('pano'), {
+				lookat: new google.maps.LatLng(-28.8003314927684, 29.67021392578124),
+				zoom: 1,
+				use_lookat: true,
+				elevation: 50,
+				shaderPath: "js/"
+			});
+
+			hyperlapse.onError = function(e) {
+				$("#status").show();
+				$("#status").text(e);
+				console.log(e);
+			};
+
+			hyperlapse.onRouteComplete = function(e) {
+				hyperlapse.load();
+			};
+
+			hyperlapse.onLoadProgress = function(e) {
+				$("#status").text("Loading " + (e.position+1) + " of " + hyperlapse.length());
+			};
+
+			hyperlapse.onLoadComplete = function(e) {
+				$("#status").hide();
+				hyperlapse.play();
+			};
+
+			// Google Maps API stuff here...
+			var directions_service = new google.maps.DirectionsService();
+
+			var route = {
+				request:{
+					origin: new google.maps.LatLng(-28.81823,29.69651,37),
+					destination: new google.maps.LatLng(-28.78515,29.680820000000004),
+					travelMode: google.maps.DirectionsTravelMode.DRIVING
+				}
+			};
+
+			directions_service.route(route.request, function(response, status) {
+				if (status == google.maps.DirectionsStatus.OK) {
+					hyperlapse.generate( {route:response} );
+				} else {
+					console.log(status);
+				}
+			});
+
+		}
+
+		window.onload = init;
+		
+	</script> 
+</head> 
+<body> 
+	<div id="pano"></div>
+	<div id="status">Loading ...</div>
+</body> 
+</html>
