@@ -34,6 +34,6 @@ Setup:
 
 The simple and viewer examples can be accessed from:
 
-http://localhost:8800/static/simple.html
-http://localhost:8800/static/viewer.html
+- http://localhost:8800/static/simple.html
+- http://localhost:8800/static/viewer.html
 
