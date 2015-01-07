@@ -15,22 +15,30 @@ Tornado
 Setup:
 ------
 1. (Optional) Configure a virtualenv:
-    
-    virtualenv hyperlapse_example
-   
+
+```    
+virtualenv hyperlapse_example
+```
+
 2. (Optional) Activate the virtualenv:
     
-    cd hyperlapse_example
-    . bin/activate
-    
+```
+cd hyperlapse_example
+. bin/activate
+```
+
 3. Install the required python modules
-    
-    pip install -r requirements.txt
-    
+
+```    
+pip install -r requirements.txt
+```
+
 4. Start the application
-    
-    cd hyperlapse_example
-    python boilerplate.py
+
+```
+cd hyperlapse_example
+python boilerplate.py
+```
 
 The simple and viewer examples can be accessed from:
 
